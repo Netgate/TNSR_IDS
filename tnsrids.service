@@ -1,0 +1,13 @@
+[Unit]
+Description=Netgate TNSR IDS daemon
+Requires=network-online.target
+After=network.target network-online.target multi-user.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/sbin/tnsrids
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
