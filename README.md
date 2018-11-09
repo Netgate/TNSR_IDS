@@ -32,7 +32,7 @@ Instructions for setting up TNSR and SNORT to accompany tnsrids can be found her
 ## Running
 Several command line switches are supported:
 * -v    Verbose mode. Outputs useful (maybe) messages while running
-* -p    UDP port to listen on for Syslog messages
+* -p    UDP port to listen on for Syslog messages (Defaults to 12345)
 * -h    Specify TNSR RESTCONF address (Defaults to localhost)
 * -c    Configuration file location (Defaults to /etc/tnsrids.conf)
 * -show Display the current ACL in table format and quit
