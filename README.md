@@ -15,9 +15,9 @@ ERSPAN is configured to forward a copy of all WAN port traffic to SNORT. SNORT a
 
 When tnsrids receives an alert message, the source IP address is extracted and a new ACL rule is constructed to block traffic from that source. The program then installs the rule in the TNSR ACL causing traffic from that source to be blocked.
 
-The block rules added in this way have a lifetime to 60 minutes (configurable) and are automatically deleted after that time
+The block rules added in this way have a lifetime of 60 minutes (configurable) and are automatically deleted after that time
 
-tnsrids/TNSR/SNORT can be ued in several topologies: All on one machine, each on a different machine, multiple instances of SNORT all feeding the same tnsrids, or any permutation thereof.
+tnsrids/TNSR/SNORT can be used in several topologies: All on one machine, each on a different machine, multiple instances of SNORT all feeding the same tnsrids, or any permutation thereof.
 
 Instructions for setting up TNSR and SNORT to accompany tnsrids can be found here: [tnsr_snort_setup.md](tnsr_snort_setup.md)
 
