@@ -90,5 +90,7 @@ Best practices dictate that TLS authentication is used to connect to the TNSR RE
 
 If tnsrids is running on the same machine as TNSR TLS authentication may not needed. In that case, specifying a TNSR address with "http://" rather than "HTTPS://" will disable TLS negotiation
 
+## Testing
+The command "go test -v" will exectute the program unit tests (in tnsrids_test.go) - Tests are provided for various utility functions. It would be possible to provide Go tests for the network pieces too, but "standard" test tools such as cURL and netcat are simpler and "standard" is a good thing.
 
 
