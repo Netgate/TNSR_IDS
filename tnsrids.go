@@ -56,7 +56,7 @@ func main() {
 	tconfig.addOption("capath", "ca", true, "TLS certificate authority file path", dfltCA)
 	tconfig.addOption("certpath", "cert", true, "TLS certificate file path", dfltCert)
 	tconfig.addOption("keypath", "key", true, "TLS key file path", dfltKey)
-	tconfig.addOption("maxage", "", true, "", "60")
+	tconfig.addOption("maxage", "m", true, "Maximum age of rules before deletion. 0 = never delete", dfltMaxage)
 
 	// Now process the command line & config file into a map of options and values
 	options := tconfig.read()
@@ -106,11 +106,13 @@ func main() {
 		return
 	}
 
-	// Set up a timer for regular tasks
+	// Set up a timer for regular tasks if maxruleage > 0
 	tnsrCron := cron.New()
-	// Such as reaping old rules
-	tnsrCron.AddFunc(reapPeriod, func() { reapACLs() })
-	tnsrCron.Start()
+	if maxruleage > 0 {
+		// Such as reaping old rules
+		tnsrCron.AddFunc(reapPeriod, func() { reapACLs() })
+		tnsrCron.Start()
+	}
 
 	// Prepare a handler to catch terminating signals (^C etc)
 	c := make(chan os.Signal, 1)
@@ -122,7 +124,10 @@ func main() {
 		}
 
 		// Close the cron process
-		tnsrCron.Stop()
+		if maxruleage > 0 {
+			tnsrCron.Stop()
+		}
+
 		os.Exit(2)
 	}()
 

@@ -35,6 +35,7 @@ Several command line switches are supported:
 * -p    UDP port to listen on for Syslog messages (Defaults to 12345)
 * -h    Specify TNSR RESTCONF address (Defaults to localhost)
 * -c    Configuration file location (Defaults to /etc/tnsrids.conf)
+* -m    Maximum age of added rules in minutes before deletion (Defaults to 60, 0 = never)
 * -show Display the current ACL in table format and quit
 * -reap Delete ACL rules older than <configured> minutes (default=60)
 * -ca   TLS Certificate authority file path (Defaults to /etc/tnsrids/.tls/ca.crt)
@@ -48,7 +49,7 @@ on the command line with the -c switch
 Currently these values may be set. More will follow:
 * host (location of TNSR instance - including protocol)
 * port (UDP port to listen on)
-* maxage (Maximum age of rules before they are reaped)
+* maxage (Maximum age of rules before they are reaped, 0 = never)
 * ca (Location ofcertificate authority file)
 * cert (Location of TLS client certificate)
 * key (Location of TLS key)
