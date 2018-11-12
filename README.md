@@ -1,5 +1,5 @@
 # TNSR-IDS Project
-# Introduction
+## Introduction
 Netgate's TNSR is a high-speed packet processing engine. It enables secure networking at speeds up to 100+ Gbps - at a fraction of the price of proprietary alternatives. You can learn more about TNSR here: https://www.netgate.com/products/tnsr/
 
 This project was developed as a solution to those deployments where 'wire speed' was not possible because the IDS/IPS consumed too much CPU on the firewall. IPS vs firewall need not be a zero-sum game.
@@ -31,28 +31,28 @@ Instructions for setting up TNSR and SNORT to accompany tnsrids can be found her
 
 ## Running
 Several command line switches are supported:
-* -v    Verbose mode. Outputs useful (maybe) messages while running
-* -p    UDP port to listen on for Syslog messages (Defaults to 12345)
-* -h    Specify TNSR RESTCONF address (Defaults to localhost)
-* -c    Configuration file location (Defaults to /etc/tnsrids.conf)
-* -m    Maximum age of added rules in minutes before deletion (Defaults to 60, 0 = never)
-* -show Display the current ACL in table format and quit
-* -reap Delete ACL rules older than <configured> minutes (default=60)
-* -ca   TLS Certificate authority file path (Defaults to /etc/tnsrids/.tls/ca.crt)
-* -cert TLS Certificate file path (Defaults to /etc/tnsrids/.tls/tnsr.crt)
-* -key  TLS key file path (Defaults to /etc/tnsrids/.tls/tnsr.key)
+* `-v`    Verbose mode. Outputs useful (maybe) messages while running
+* `-p`    UDP port to listen on for Syslog messages (Defaults to 12345)
+* `-h`    Specify TNSR RESTCONF address (Defaults to localhost)
+* `-c`    Configuration file location (Defaults to /etc/tnsrids.conf)
+* `-m`    Maximum age of added rules in minutes before deletion (Defaults to 60, 0 = never)
+* `-show` Display the current ACL in table format and quit
+* `-reap` Delete ACL rules older than <configured> minutes (default=60)
+* `-ca`   TLS Certificate authority file path (Defaults to /etc/tnsrids/.tls/ca.crt)
+* `-cert` TLS Certificate file path (Defaults to /etc/tnsrids/.tls/tnsr.crt)
+* `-key`  TLS key file path (Defaults to /etc/tnsrids/.tls/tnsr.key)
 
 ## Configuration file
-Several options may be set via configuration file. The default location is /etc/tnsrids.conf, but that can be overridden 
-on the command line with the -c switch
+Several options may be set via configuration file. The default location is **/etc/tnsrids.conf**, but that can be overridden 
+on the command line with the `-c` switch
 
 Currently these values may be set. More will follow:
-* host (location of TNSR instance - including protocol)
-* port (UDP port to listen on)
-* maxage (Maximum age of rules before they are reaped, 0 = never)
-* ca (Location ofcertificate authority file)
-* cert (Location of TLS client certificate)
-* key (Location of TLS key)
+* `host` (location of TNSR instance - including protocol)
+* `port` (UDP port to listen on)
+* `maxage` (Maximum age of rules before they are reaped, 0 = never)
+* `ca` (Location ofcertificate authority file)
+* `cert` (Location of TLS client certificate)
+* `key` (Location of TLS key)
 
 The configuration keys are case insensitive. See the sample tnsrids.conf for more details
 
@@ -69,29 +69,28 @@ Or other OS/architectures as needed. A list of available target OS/ARCH can be f
 https://gist.github.com/asukakenji/f15ba7e588ac42795f421b48b8aede63
 
 ### To build without debug info or labels
-    Append -ldflags "-s -w" to the build command
+Append `-ldflags "-s -w"` to the build command
 
 ## Required external packages
 Two external packages are required.
 * github.com/robfig/cron
 * gopkg.in/natefinch/lumberjack.v2
 
-Cron provides timed execution (obviously)
-Lubmerjack provides log rotation and pruning
+[Cron](http://github.com/robfig/cron) provides timed execution (obviously) and [Lubmerjack](https://gopkg.in/natefinch/lumberjack.v2) provides log rotation and pruning.
 
 ## Installation
-tnsrids can be run as an application or a service. To install it as a service, copy tnsrids to /usr/local/sbin,
-copy the file tnsrids.service to /lib/systemd/system, then type:
+**tnsrids** can be run as an application or a service. To install it as a service, copy **tnsrids** to **/usr/local/sbin**,
+copy the file **tnsrids.service** to **/lib/systemd/system**, then type:
 
-* sudo systemctl enable tnsrids
-* sudo systemctl start tnsrids
+    sudo systemctl enable tnsrids
+    sudo systemctl start tnsrids
 
 ## TLS authentication
-Best practices dictate that TLS authentication is used to connect to the TNSR RESTCONF interface. Three files are required to authenticate in this way: A certificate authority, a client certificate and a key. The location of those files may be specified in the config file or on the command line. The default location is /etc/tnsrids/.tls/ - The full path and filename is required for each file.
+Best practices dictate that TLS authentication is used to connect to the TNSR RESTCONF interface. Three files are required to authenticate in this way: A certificate authority, a client certificate and a key. The location of those files may be specified in the config file or on the command line. The default location is **/etc/tnsrids/.tls/** - The full path and filename is required for each file.
 
 If tnsrids is running on the same machine as TNSR TLS authentication may not needed. In that case, specifying a TNSR address with "http://" rather than "HTTPS://" will disable TLS negotiation
 
 ## Testing
-The command "go test -v" will exectute the program unit tests (in tnsrids_test.go) - Tests are provided for various utility functions. It would be possible to provide Go tests for the network pieces too, but "standard" test tools such as cURL and netcat are simpler and "standard" is a good thing.
+The command `go test -v` will exectute the program unit tests (in **tnsrids_test.go**) - Tests are provided for various utility functions. It would be possible to provide Go tests for the network pieces too, but "standard" test tools such as cURL and netcat are simpler and "standard" is a good thing.
 
 
