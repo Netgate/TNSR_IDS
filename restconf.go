@@ -63,14 +63,14 @@ func getSnortBlockACL(force bool) error {
 }
 
 // Print a pretty list of the rules in an ACL
-func listACLs(acl ACLRuleList) {
+func (c ACLRuleList) listACLs() {
 	log.Printf("INFO: Listing ACL block rules for snortblock ACL")
 
 	idx := 0
 	var dstsrc string
 	var addr string
 
-	for _, v := range acl.AclRule {
+	for _, v := range c.AclRule {
 		var r AAclRule = v
 
 		if len(r.DstIPPrefix) == 0 {
@@ -97,7 +97,7 @@ func showACLs() {
 	}
 
 	fmt.Println("\nCurrently installed rules in ACL list \"snortblock\"\n--------------------------------------------------")
-	listACLs(aclcache)
+	aclcache.listACLs()
 }
 
 // Add a rule to the snortblock ACL in TNSR and in local cache. src indicates source rule or destination
