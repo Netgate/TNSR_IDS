@@ -34,7 +34,7 @@ Several command line switches are supported:
 * `-v`    Verbose mode. Outputs useful (maybe) messages while running
 * `-p`    UDP port to listen on for Syslog messages (Defaults to 12345)
 * `-h`    Specify TNSR RESTCONF address (Defaults to localhost)
-* `-c`    Configuration file location (Defaults to /etc/tnsrids.conf)
+* `-c`    Configuration file location (Defaults to /etc/tnsrids/tnsrids.conf)
 * `-m`    Maximum age of added rules in minutes before deletion (Defaults to 60, 0 = never)
 * `-show` Display the current ACL in table format and quit
 * `-reap` Delete ACL rules older than <configured> minutes (default=60)
@@ -43,8 +43,7 @@ Several command line switches are supported:
 * `-key`  TLS key file path (Defaults to /etc/tnsrids/.tls/tnsr.key)
 
 ## Configuration file
-Several options may be set via configuration file. The default location is **/etc/tnsrids.conf**, but that can be overridden 
-on the command line with the `-c` switch
+Several options may be set via configuration file. The default location is **/etc/tnsrids/tnsrids.conf**, but that can be overridden on the command line with the `-c` switch
 
 Currently these values may be set. More will follow:
 * `host` (location of TNSR instance - including protocol)
