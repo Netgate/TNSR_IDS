@@ -95,7 +95,7 @@ The command `go test -v` will exectute the program unit tests (in **tnsrids_test
 ## Running tnsrids in a Docker container
 There are a number of ways in which tnsrids can be run in a Docker container. These include:
 * Include all of the resources required by tnsrids (config file and certificates) in the Docker image
-* Leave the resource files in a directory on the host machine, mounting the direcotory inside the container and passing in configuration options via command line options
+* Leave the resource files in a directory on the host machine, mounting the directory inside the container and passing in configuration options via command line options
 
 ### Inclusive method
 The "include the resources in the image" method is the most simple. Assuming that Docker has been installed on the host system (`sudo yum install docker` or equivalent), perform the following steps:
