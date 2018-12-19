@@ -1,0 +1,11 @@
+[Unit]
+Description=tnsrids container
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker start -a tnsrids_latest
+ExecStop=/usr/bin/docker stop -t 2 tnsrids_latest
+
+[Install]
+WantedBy=local.target

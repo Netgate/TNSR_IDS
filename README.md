@@ -92,4 +92,47 @@ If tnsrids is running on the same machine as TNSR TLS authentication may not nee
 ## Testing
 The command `go test -v` will exectute the program unit tests (in **tnsrids_test.go**) - Tests are provided for various utility functions. It would be possible to provide Go tests for the network pieces too, but "standard" test tools such as cURL and netcat are simpler and "standard" is a good thing.
 
+## Running tnsrids in a Docker container
+There are a number of ways in which tnsrids can be run in a Docker container. These include:
+* Include all of the resources required by tnsrids (config file and certificates) in the Docker image
+* Leave the resource files in a directory on the host machine, mounting the direcotory inside the container and passing in configuration options via command line options
+
+### Includisve method
+The "include the resources in the image" is the most simple. Assuming that Docker has been installed on the host system (`sudo yum install docker` or equivalent), perform the follong steps:
+1. Build a copy of the tnsrids utility for a Linux target `GOOS=linux GOARCH=amd64 go build tnsrids`
+2. Create a directory to hold everything required by the Docker image and place the following files therein:
+..* The newly built Linux tnsrids
+..* The configuration file tnsrids.conf
+..* ca.crt
+..* tnsrids.crt
+..* tnsrids.key
+..* The file Dockerfile_inclusive from this repository, whuch MUST be renamed to simply "Dockerfile"
+3. Now change directories to the new directory and build the Docker image with `docker build --tag tnsrids .`
+
+**IMPORTANT NOTE**
+The file names used for the configuration file, ca, certificate and key must all match the names used in the Dockerfile and in hte configuration file. THe Docker file will include a particular ca, for example, so the configuration file needs to reference the same file.
+
+To run the Docker image use the command `docker run -p 12345:12345/udp tnsrids:latest` where the published port corresponds to the UDP port in the tnsrids configuraion file.
+
+
+### Host based configuration
+1. Build a copy of the tnsrids utility for a Linux target `GOOS=linux GOARCH=amd64 go build tnsrids`
+2. Create a directory to hold everything required by the Docker image and place the following files therein:
+..* The newly built Linux tnsrids
+..* The configuration file tnsrids.conf
+..* ca.crt
+..* tnsrids.crt
+..* tnsrids.key
+..* The file Dockerfile_host from this repository, whuch MUST be renamed to simply "Dockerfile"
+3.  Edit the Dockerfile changing the location of the certificate, ca and key files to /mnt/tnsrids
+4. Now change directories to the new directory and build the Docker image with `docker build --tag tnsrids .`
+
+To run the Docker image use the command:
+ `docker run <path to new folder on host>:/mnt/tnsrids -p 12345:12345/udp tnsrids:latest tnsrids -c /mnt/tnsrids.conf` 
+
+ This command tells Docker to mount the directory you made inside the container as /mnt/tnsrids and then to read the configuration file from that directory.
+
+ ### Running a Docker container as a service at start-up
+ Please refer to this guide: https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux_atomic_host/7/html/managing_containers/using_systemd_with_containers
+ The tnsrisa-docker.service file in this repository is correctly configured per the website example
 
