@@ -134,5 +134,5 @@ To run the Docker image use the command:
 
  ### Running a Docker container as a service at start-up
  Please refer to this [Red Hat systemd guide](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux_atomic_host/7/html/managing_containers/using_systemd_with_containers)
- The tnsrisa-docker.service file in this repository is correctly configured per the website example
+ The tnsrids-docker.service file in this repository is correctly configured per the website example
 
