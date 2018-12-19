@@ -98,15 +98,15 @@ There are a number of ways in which tnsrids can be run in a Docker container. Th
 * Leave the resource files in a directory on the host machine, mounting the direcotory inside the container and passing in configuration options via command line options
 
 ### Includisve method
-The "include the resources in the image" is the most simple. Assuming that Docker has been installed on the host system (`sudo yum install docker` or equivalent), perform the follong steps:
+The "include the resources in the image" method is the most simple. Assuming that Docker has been installed on the host system (`sudo yum install docker` or equivalent), perform the following steps:
 1. Build a copy of the tnsrids utility for a Linux target `GOOS=linux GOARCH=amd64 go build tnsrids`
 2. Create a directory to hold everything required by the Docker image and place the following files therein:
-..* The newly built Linux tnsrids
-..* The configuration file tnsrids.conf
-..* ca.crt
-..* tnsrids.crt
-..* tnsrids.key
-..* The file Dockerfile_inclusive from this repository, whuch MUST be renamed to simply "Dockerfile"
+ * The newly built Linux tnsrids
+ * The configuration file tnsrids.conf
+ * ca.crt
+ * tnsrids.crt
+ * tnsrids.key
+ * The file Dockerfile_inclusive from this repository, whuch MUST be renamed to simply "Dockerfile"
 3. Now change directories to the new directory and build the Docker image with `docker build --tag tnsrids .`
 
 **IMPORTANT NOTE**
@@ -118,12 +118,12 @@ To run the Docker image use the command `docker run -p 12345:12345/udp tnsrids:l
 ### Host based configuration
 1. Build a copy of the tnsrids utility for a Linux target `GOOS=linux GOARCH=amd64 go build tnsrids`
 2. Create a directory to hold everything required by the Docker image and place the following files therein:
-..* The newly built Linux tnsrids
-..* The configuration file tnsrids.conf
-..* ca.crt
-..* tnsrids.crt
-..* tnsrids.key
-..* The file Dockerfile_host from this repository, whuch MUST be renamed to simply "Dockerfile"
+ * The newly built Linux tnsrids
+ * The configuration file tnsrids.conf
+ * ca.crt
+ * tnsrids.crt
+ * tnsrids.key
+ * The file Dockerfile_host from this repository, whuch MUST be renamed to simply "Dockerfile"
 3.  Edit the Dockerfile changing the location of the certificate, ca and key files to /mnt/tnsrids
 4. Now change directories to the new directory and build the Docker image with `docker build --tag tnsrids .`
 
