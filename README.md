@@ -97,7 +97,7 @@ There are a number of ways in which tnsrids can be run in a Docker container. Th
 * Include all of the resources required by tnsrids (config file and certificates) in the Docker image
 * Leave the resource files in a directory on the host machine, mounting the direcotory inside the container and passing in configuration options via command line options
 
-### Inclusisve method
+### Inclusive method
 The "include the resources in the image" method is the most simple. Assuming that Docker has been installed on the host system (`sudo yum install docker` or equivalent), perform the following steps:
 1. Build a copy of the tnsrids utility for a Linux target `GOOS=linux GOARCH=amd64 go build tnsrids`
 2. Create a directory to hold everything required by the Docker image and place the following files therein:
