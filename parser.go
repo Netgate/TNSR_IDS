@@ -1,7 +1,7 @@
 // parser.go extracts the host we need to block from a Snort alert message and puts it onto channel
 // The Go routine processHosts() reads the hosts from the channel and updates the ACL
 
-/* Copyright (c) 2018 Rubicon Communications, LLC (Netgate)
+/* Copyright (c) 2018-2019 Rubicon Communications, LLC (Netgate)
  * All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
