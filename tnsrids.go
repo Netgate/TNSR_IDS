@@ -92,7 +92,10 @@ func main() {
 
 	// Just list the installed ACL rules and quit
 	if options["show"] == "yes" {
-		showACLs()
+		err := showACLs()
+		if err != nil {
+			fmt.Printf("Unable to retrieve rules: %v\n", err)
+		}
 		return
 	}
 
@@ -117,6 +120,7 @@ func main() {
 	// Prepare a handler to catch terminating signals (^C etc)
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
+
 	go func() {
 		<-c
 		if verbose {

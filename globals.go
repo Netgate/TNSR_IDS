@@ -21,10 +21,17 @@ import (
 	"sync"
 )
 
-const version string = "0.41"
+/* Use these for TNSR versions >= 19.02 */
+const version string = "0.42"
+const ACL_WriteRule = "/restconf/data/netgate-acl:acl-config/acl-table/acl-list=snortblock/acl-rules"
+const ACL_ReadRules = "/restconf/data/netgate-acl:acl-config/acl-table/acl-list=snortblock/acl-rules/acl-rule"
+const ACL_Delete = "/restconf/data/netgate-acl:acl-config/acl-table/acl-list=snortblock/acl-rules/acl-rule="
+
+/* Use these for TNSR versions earlier than 19.02
 const ACL_WriteRule = "/restconf/data/acl-config/acl-table/acl-list=snortblock/acl-rules"
 const ACL_ReadRules = "/restconf/data/acl-config/acl-table/acl-list=snortblock/acl-rules/acl-rule"
 const ACL_Delete = "/restconf/data/acl-config/acl-table/acl-list=snortblock/acl-rules/acl-rule="
+*/
 const MAXCACHEAGE uint64 = 5 // Maximum permitted age of the cached rules after which it must be refreshed
 const reapPeriod string = "@every 5m"
 const maxSeqNum uint64 = 2147483645
@@ -45,7 +52,7 @@ type ACL struct {
 
 // An ACLRuleList contains a list of rules
 type ACLRuleList struct {
-	AclRule []AAclRule `json:"acl-rule"`
+	AclRule []AAclRule `json:"netgate-acl:acl-rule"`
 }
 
 // Each rule contains a sequence #, description, action and URI (those are all we care about anyway)

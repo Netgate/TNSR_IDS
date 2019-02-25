@@ -45,12 +45,11 @@ func getSnortBlockACL(force bool) error {
 	}
 
 	response, err := rest("GET", tnsrhost+ACL_ReadRules, "")
-
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
-	// Write the received JSON fule list to the local cache
+	// Write the received JSON rule list to the local cache
 	err = json.Unmarshal(response, &aclcache)
 
 	if err != nil {
@@ -89,15 +88,15 @@ func (c ACLRuleList) listACLs() {
 }
 
 // Retrieve the rules from the snortblock ACL and print them to the console
-func showACLs() {
+func showACLs() error {
 	err := getSnortBlockACL(false)
 	if err != nil {
-		errors.New("Unable to snortblock read rues from TNSR\n")
-		return
+		return err
 	}
 
 	fmt.Println("\nCurrently installed rules in ACL list \"snortblock\"\n--------------------------------------------------")
 	aclcache.listACLs()
+	return nil
 }
 
 // Add a rule to the snortblock ACL in TNSR and in local cache. src indicates source rule or destination
@@ -113,7 +112,7 @@ func addRule(host string, src bool) {
 		log.Fatal("Unable to snortblock read rues from TNSR\n")
 	}
 
-	// DOn't duplicate rules
+	// Don't duplicate rules
 	if ruleExists(host) {
 		if verbose {
 			fmt.Printf("Duplicate rule: %s\n", host)
