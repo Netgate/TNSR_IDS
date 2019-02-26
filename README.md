@@ -84,6 +84,16 @@ copy the file **tnsrids.service** to **/lib/systemd/system**, then type:
     sudo systemctl enable tnsrids
     sudo systemctl start tnsrids
 
+## Firewall considerations
+TNSR version 19.02 and later ships with nftables enabled and configured. A rule MUST be added to allow TNSR-IDS to receive the UDP datagrams
+produced by Snort. Specifying the UDP port you have configured TNSR-IDS to listen on (d12345 used in this example) add a rule like so:
+
+`sudo nft add rule inet tnsr_filter tnsr_input_mgmt_default udp dport 12345 accept`
+
+You can verify that the rule has been added by listing all tables:
+
+`sudo nft list table inet tnsr_filter -a`
+
 ## TLS authentication
 Best practices dictate that TLS authentication is used to connect to the TNSR RESTCONF interface. Three files are required to authenticate in this way: A certificate authority, a client certificate and a key. The location of those files may be specified in the config file or on the command line. The default location is **/etc/tnsrids/.tls/** - The full path and filename is required for each file.
 
