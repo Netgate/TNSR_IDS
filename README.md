@@ -86,7 +86,7 @@ copy the file **tnsrids.service** to **/lib/systemd/system**, then type:
 
 ## Firewall considerations
 TNSR version 19.02 and later ships with nftables enabled and configured. A rule MUST be added to allow TNSR-IDS to receive the UDP datagrams
-produced by Snort. Specifying the UDP port you have configured TNSR-IDS to listen on (d12345 used in this example) add a rule like so:
+produced by Snort. Specifying the UDP port you have configured TNSR-IDS to listen on (12345 used in this example) add a rule like so:
 
     sudo nft add rule inet tnsr_filter tnsr_input_mgmt_default udp dport 12345 accept
 
