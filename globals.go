@@ -21,8 +21,9 @@ import (
 	"sync"
 )
 
-/* Use these for TNSR versions >= 19.02 */
 const version string = "0.42"
+
+/* Use these for TNSR versions >= 19.02 */
 const ACL_WriteRule = "/restconf/data/netgate-acl:acl-config/acl-table/acl-list=snortblock/acl-rules"
 const ACL_ReadRules = "/restconf/data/netgate-acl:acl-config/acl-table/acl-list=snortblock/acl-rules/acl-rule"
 const ACL_Delete = "/restconf/data/netgate-acl:acl-config/acl-table/acl-list=snortblock/acl-rules/acl-rule="
