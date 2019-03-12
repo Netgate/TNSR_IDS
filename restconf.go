@@ -183,10 +183,6 @@ func rest(oper string, url string, payload string) ([]byte, error) {
 	if useTLS {
 		transport := &http.Transport{TLSClientConfig: tlsConfig}
 		client = &http.Client{Transport: transport}
-		resp, err = client.Do(req)
-		if err != nil {
-			return nil, err
-		}
 	} else {
 		client = &http.Client{}
 	}
