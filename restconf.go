@@ -189,6 +189,7 @@ func rest(oper string, url string, payload string) ([]byte, error) {
 
 	resp, err = client.Do(req)
 	if err != nil {
+		fmt.Printf("%v", err)
 		return nil, err
 	}
 
