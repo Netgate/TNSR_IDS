@@ -74,7 +74,7 @@ Two external packages are required.
 * github.com/robfig/cron
 * gopkg.in/natefinch/lumberjack.v2
 
-[Cron](http://github.com/robfig/cron) provides timed execution (obviously) and [Lubmerjack](https://gopkg.in/natefinch/lumberjack.v2) provides log rotation and pruning.
+[Cron](http://github.com/robfig/cron) provides timed execution (obviously) and [Lumberjack](https://gopkg.in/natefinch/lumberjack.v2) provides log rotation and pruning.
 
 ## Installation
 **tnsrids** can be run as an application or a service. To install it as a service, copy **tnsrids** to **/usr/local/sbin**,
