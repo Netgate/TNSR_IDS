@@ -24,7 +24,7 @@ Instructions for setting up TNSR and SNORT to accompany tnsrids can be found her
 * SNORT: https://www.snort.org
 * ERSPAN: https://packetpushers.net/erspan-new-favorite-packet-capturing-trick/
 * RESTCONF: http://sdntutorials.com/what-is-restconf/
-* YANG: https://en.wikipedia.org/wiki/Yang
+* YANG: https://en.wikipedia.org/wiki/YANG
 
 # Use and Configuration of tnsrids
 
