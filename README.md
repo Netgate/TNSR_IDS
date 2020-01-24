@@ -141,6 +141,6 @@ To run the Docker image use the command:
  This command tells Docker to mount the directory you made inside the container as /mnt/tnsrids and then to read the configuration file from that directory.
 
  ### Running a Docker container as a service at start-up
- Please refer to this [Red Hat systemd guide](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux_atomic_host/7/html/managing_containers/using_systemd_with_containers)
+ Please refer to this [Red Hat systemd guide](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux_atomic_host/7/html/managing_containers/running_containers_as_systemd_services_with_podman#starting_containers_with_systemd)
  The tnsrids-docker.service file in this repository is correctly configured per the website example
 
