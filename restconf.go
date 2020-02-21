@@ -178,7 +178,8 @@ func rest(oper string, url string, payload string) ([]byte, error) {
 		req, err = http.NewRequest(oper, url, bytes.NewBuffer(jsonStr))
 	}
 
-	req.Header.Set("Content-Type", "application/json")
+	// This content-type is required for TNSR > 19-12 and specifically to use the HTTP PATCH mthod
+	req.Header.Set("Content-Type", "application/yang-data+json")
 
 	if useTLS {
 		transport := &http.Transport{TLSClientConfig: tlsConfig}
@@ -194,14 +195,15 @@ func rest(oper string, url string, payload string) ([]byte, error) {
 	}
 
 	defer resp.Body.Close()
+	contents, _ := ioutil.ReadAll(resp.Body)
 
-	//	fmt.Println("response Status:", resp.Status) // Should be "200 OK"
+	//	fmt.Println("response Status:", resp.Status)
 
-	if resp.StatusCode != 200 {
+	// 204 code is valid if no response is expected. Currently 404 is returned if the configuration item is currently empty
+	// which is not really an error, but sionce the body contains an error message, 204 is not really appropriate.
+	if resp.StatusCode != 200 && resp.StatusCode != 204 && !(resp.StatusCode == 404 && extractErrorMsg(contents) != "Instance does not exist") {
 		return nil, errors.New("RESTCONF operation failed (" + string(resp.Status) + ")")
 	}
-
-	contents, err := ioutil.ReadAll(resp.Body)
 
 	return contents, nil
 }
@@ -373,4 +375,31 @@ func TLSSetup(ca string, certificate string, key string) error {
 	useTLS = true
 
 	return nil
+}
+
+type IETF_RESTCONF_ERRORS struct {
+	Errors IETF_RESTCONF_ERROR `json:"ietf-restconf:errors"`
+}
+
+type IETF_RESTCONF_ERROR struct {
+	Error IETF_RPC_ERROR `json:"error"`
+}
+
+type IETF_RPC_ERROR struct {
+	RPCError TNSR_ERROR `json:"rpc-error"`
+}
+
+type TNSR_ERROR struct {
+	Type     string `json:"error-type"`
+	Tag      string `json:"error-tag"`
+	Severity string `json:"error-severity"`
+	Message  string `json:"error-message"`
+}
+
+// extractErrorMsg() - take the JSON error response string received from a bad RESTCONF call and extract the error-message
+func extractErrorMsg(response []byte) string {
+	var ietfErr IETF_RESTCONF_ERRORS
+
+	json.Unmarshal(response, &ietfErr)
+	return ietfErr.Errors.Error.RPCError.Message
 }
