@@ -36,7 +36,7 @@ const dfltMaxage string = "60"                   // Maximum age of rules before 
 const dfltPort string = "12345"                  // Default UDP port on whic alert messages are received
 const dfltCA string = "/etc/tnsrids/.tls/ca.crt" // Default location of TLS ertificates
 const dfltCert string = "/etc/tnsrids/.tls/tnsr.crt"
-const dfltKey string = "/etc/tnsrids//.tls/tnsr.key"
+const dfltKey string = "/etc/tnsrids/.tls/tnsr.key"
 
 // A Config is a list of configuration items that specify the option details
 type Config struct {

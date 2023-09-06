@@ -26,6 +26,7 @@ will always come last:
     acl snortblock
     rule 2147483646
     action permit
+    ip-version ipv4
     exit
     exit
 
@@ -34,7 +35,7 @@ Configure the external interface, and add the ACL from above:
     interface GigabitEthernet13/0/0
     ip address 203.0.113.2/24
     description External/WAN
-    access-list input acl snortblock 10
+    access-list input acl snortblock sequence 10
     enable
     exit
 
@@ -63,11 +64,15 @@ Configure the GRE/ERSPAN interface and corresponding SPAN:
 
 Enable the RESTCONF server:
 
-    http server
-    enable restconf
-    authentication type none
+    restconf
+    enable true
+    global authentication-type client-certificate
+    global server-certificate SRV
+    global server-key SRV
+    global server-ca-cert-path TNSR
+    server dataplane 192.0.2.1 443 true
 
-**WARNING**: Do not use `authentication type none` in production, only for testing, it is not secure!
+**WARNING**: You are able to use previously created certificate or to create it through the TNSR
 
 ## Setup tnsrids Daemon
 
@@ -137,8 +142,8 @@ interface snort is bound to, it can decode the GRE directly.
 
     $ sudo ifup tun0
 
-Setup snort, for example on pfSense using its docs or on CentOS by following
-https://www.upcloud.com/support/installing-snort-on-centos/
+Setup snort, for example on CentOS by following
+https://upcloud.com/resources/tutorials/installing-snort-on-centos
 
 Snort **DOES NOT** need to run on the GRE interface/tun, only on the interface with the address used to receive the GRE/ERSPAN traffic. Snort will see and decapsulate the GRE traffic internally.
 
@@ -166,7 +171,7 @@ Restart rsyslog:
 A rule to flag any ICMP traffic is a good test to generate alerts quickly.
 
     $ sudo vi /etc/snort/rules/local.rules
-    alert icmp any any -> $HOME_NET any (msg:"ICMP test"; sid:10000001; rev:001;
+    alert icmp !$HOME_NET any -> $HOME_NET any (msg:"ICMP test"; sid:10000001; rev:001;
 
 ## Traffic Generator Setup (Testing)
 
