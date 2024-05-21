@@ -25,7 +25,7 @@ const version string = "0.42"
 
 /* Use these for TNSR versions >= 19.02 */
 const ACL_WriteRule = "/restconf/data/netgate-acl:acl-config/acl-table/acl-list=snortblock/acl-rules"
-const ACL_ReadRules = "/restconf/data/netgate-acl:acl-config/acl-table/acl-list=snortblock/acl-rules/acl-rule"
+const ACL_ReadRules = "/restconf/data/netgate-acl:acl-config/acl-table/acl-list=snortblock/acl-rules"
 const ACL_Delete = "/restconf/data/netgate-acl:acl-config/acl-table/acl-list=snortblock/acl-rules/acl-rule="
 
 /* Use these for TNSR versions earlier than 19.02
@@ -61,6 +61,7 @@ type AAclRule struct {
 	Sequence           uint64 `json:"sequence"`
 	AclRuleDescription string `json:"acl-rule-description"`
 	Action             string `json:"action"`
+	Version            string `json:"ip-version"`
 	DstIPPrefix        string `json:"dst-ip-prefix,omitempty"`
 	SrcIPPrefix        string `json:"src-ip-prefix,omitempty"`
 

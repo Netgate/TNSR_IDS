@@ -127,7 +127,8 @@ func addRule(host string, src bool) {
 	rule.AclRuleDescription = fmt.Sprintf("%d, Added by tnsrids", now.Unix())
 	rule.Sequence = getNextSeqNum()
 	rule.Action = "deny"
-
+	rule.Version = "ipv4"
+	
 	//Source rule or destination?
 	if src {
 		rule.SrcIPPrefix = host
@@ -144,7 +145,7 @@ func addRule(host string, src bool) {
 	}
 
 	// Compose the JSON formatting
-	cmd := "{\"acl-rule\":[" + string(b) + "]}"
+	cmd := "{\"netgate-acl:acl-rule\":" + string(b) + "}"
 
 	if verbose {
 		fmt.Printf("Adding rule for host: %s\n", host)

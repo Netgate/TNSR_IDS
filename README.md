@@ -57,6 +57,9 @@ The configuration keys are case insensitive. See the sample tnsrids.conf for mor
 When a configuration value is provided on the command line AND in the config file, the command line wins.
 
 ## Building
+### To create go.mod
+    go mod init gitlab.netgate.com/TNSR/tnsr_ids
+
 ### To build natively
     go build
     
